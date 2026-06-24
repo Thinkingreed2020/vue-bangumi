@@ -49,19 +49,20 @@ export const getUserCollections = async (
   }
 }
 
-export const getUserInfo = async (id: number) => {
+export const getUserInfo = async (username: string): Promise<UserInfoResult> => {
   try {
-    const res = await bangumiClient.get<UserInfoResult>(`/v0/users/${id}`)
-    console.log(res.data)
+    const res = await bangumiClient.get<UserInfoResult>(
+      `/v0/users/${encodeURIComponent(username)}`,
+    )
     return res.data
   } catch (err) {
     if (axios.isAxiosError(err)) {
       const status = err.response?.status
       if (status === 404) {
-        throw new BangumiApiError(`用户 ${id} 不存在`, status)
+        throw new BangumiApiError(`用户 ${username} 不存在`, status)
       }
       if (status === 403 || status === 451) {
-        throw new BangumiApiError(`用户 ${id} 的信息不可见`, status)
+        throw new BangumiApiError(`用户 ${username} 的信息不可见`, status)
       }
       throw new BangumiApiError(err.message, status)
     }
