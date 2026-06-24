@@ -1,5 +1,9 @@
 import axios from 'axios'
-import type { GetUserCollectionsParams, UserCollectionsResult } from '@/types/bangumi'
+import type {
+  GetUserCollectionsParams,
+  UserCollectionsResult,
+  UserInfoResult,
+} from '@/types/bangumi'
 
 const bangumiClient = axios.create({
   baseURL: 'https://api.bgm.tv',
@@ -38,6 +42,26 @@ export const getUserCollections = async (
       }
       if (status === 403 || status === 451) {
         throw new BangumiApiError(`用户 ${username} 的收藏不可见`, status)
+      }
+      throw new BangumiApiError(err.message, status)
+    }
+    throw err
+  }
+}
+
+export const getUserInfo = async (id: number) => {
+  try {
+    const res = await bangumiClient.get<UserInfoResult>(`/v0/users/${id}`)
+    console.log(res.data)
+    return res.data
+  } catch (err) {
+    if (axios.isAxiosError(err)) {
+      const status = err.response?.status
+      if (status === 404) {
+        throw new BangumiApiError(`用户 ${id} 不存在`, status)
+      }
+      if (status === 403 || status === 451) {
+        throw new BangumiApiError(`用户 ${id} 的信息不可见`, status)
       }
       throw new BangumiApiError(err.message, status)
     }

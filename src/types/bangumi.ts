@@ -77,3 +77,16 @@ export interface AnimeAbstract {
     score: number
   }
 }
+
+export interface UserInfo {
+  id: number
+  username: string
+  avatar: {
+    large: string
+    medium: string
+    small: string
+  }
+  sign: string
+}
+
+export type UserInfoResult = UserInfo
