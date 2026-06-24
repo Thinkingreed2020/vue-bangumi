@@ -62,3 +62,18 @@ export interface PagedResult<T> {
 }
 
 export type UserCollectionsResult = PagedResult<UserSubjectCollection>
+
+export interface AnimeAbstract {
+  id: number
+  url: string
+  type: SubjectType
+  name: string
+  name_cn: string
+  summary: string
+  images: SubjectImages
+  air_date: string
+  rating: {
+    total: number
+    score: number
+  }
+}
