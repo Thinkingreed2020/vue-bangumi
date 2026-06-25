@@ -90,3 +90,30 @@ export interface UserInfo {
 }
 
 export type UserInfoResult = UserInfo
+
+export type ItemDetail = AnimeAbstract
+
+export interface mainichi {
+  weekday: {
+    ja: string
+    id: number
+  }
+  items: [
+    {
+      id: number
+      url: string
+      type: SubjectType
+      name: string
+      name_cn: string
+      summary: string
+      images: SubjectImages
+      air_date: string
+      rating: {
+        total: number
+        score: number
+      }
+      // 每周放送日
+      air_weekday: number
+    },
+  ]
+}

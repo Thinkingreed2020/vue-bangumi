@@ -3,6 +3,8 @@ import type {
   GetUserCollectionsParams,
   UserCollectionsResult,
   UserInfoResult,
+  ItemDetail,
+  mainichi,
 } from '@/types/bangumi'
 
 const bangumiClient = axios.create({
@@ -51,9 +53,7 @@ export const getUserCollections = async (
 
 export const getUserInfo = async (username: string): Promise<UserInfoResult> => {
   try {
-    const res = await bangumiClient.get<UserInfoResult>(
-      `/v0/users/${encodeURIComponent(username)}`,
-    )
+    const res = await bangumiClient.get<UserInfoResult>(`/v0/users/${encodeURIComponent(username)}`)
     return res.data
   } catch (err) {
     if (axios.isAxiosError(err)) {
@@ -63,6 +63,23 @@ export const getUserInfo = async (username: string): Promise<UserInfoResult> => 
       }
       if (status === 403 || status === 451) {
         throw new BangumiApiError(`用户 ${username} 的信息不可见`, status)
+      }
+      throw new BangumiApiError(err.message, status)
+    }
+    throw err
+  }
+}
+
+export const getMainichi = async (): Promise<mainichi> => {
+  try {
+    const res = await bangumiClient.get<mainichi>('/calendar')
+    console.log(res.data)
+    return res.data
+  } catch (err) {
+    if (axios.isAxiosError(err)) {
+      const status = err.response?.status
+      if (status === 404) {
+        throw new BangumiApiError(`获取主日失败`, status)
       }
       throw new BangumiApiError(err.message, status)
     }
