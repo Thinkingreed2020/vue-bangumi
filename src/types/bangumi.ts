@@ -80,6 +80,7 @@ export interface AnimeAbstract {
 
 export interface UserInfo {
   id: number
+  nickname: string
   username: string
   avatar: {
     large: string
@@ -96,24 +97,24 @@ export type ItemDetail = AnimeAbstract
 export interface mainichi {
   weekday: {
     ja: string
+    en: string
+    cn: string
     id: number
   }
-  items: [
-    {
-      id: number
-      url: string
-      type: SubjectType
-      name: string
-      name_cn: string
-      summary: string
-      images: SubjectImages
-      air_date: string
-      rating: {
-        total: number
-        score: number
-      }
-      // 每周放送日
-      air_weekday: number
-    },
-  ]
+  items: {
+    id: number
+    url: string
+    type: SubjectType
+    name: string
+    name_cn: string
+    summary: string
+    images: SubjectImages
+    air_date: string
+    rating: {
+      total: number
+      score: number
+    }
+    // 每周放送日
+    air_weekday: number
+  }[]
 }

@@ -2,7 +2,7 @@
   <div align="center">
     <h1 v-if="userInfo">
       <img :src="userInfo.avatar.medium" alt="用户头像" width="80" /> 用户名：{{
-        userInfo.username
+        userInfo.nickname
       }}，用户ID：{{ userID }}
     </h1>
     <p v-else-if="userInfoError">{{ userInfoError }}</p>
@@ -23,14 +23,14 @@
       <li v-for="item in collections" :key="item.subject_id" class="collection-item">
         <router-link :to="`/itemDetail/${item.subject_id}`">
           <img :src="item.subject.images.medium" :alt="item.subject.name" width="80" />
-          <div class="info">
-            <p>{{ item.subject.name_cn || item.subject.name }}</p>
-            <p>{{ item.subject.short_summary }}</p>
-            <p v-if="item.rate">我的评分：{{ item.rate }}</p>
-            <p v-else>未评分</p>
-            <p v-if="item.comment">我的评论：{{ item.comment }}</p>
-          </div>
         </router-link>
+        <div class="info">
+          <p>{{ item.subject.name_cn || item.subject.name }}</p>
+          <p>{{ item.subject.short_summary }}</p>
+          <p v-if="item.rate">我的评分：{{ item.rate }}</p>
+          <p v-else>未评分</p>
+          <p v-if="item.comment">我的评论：{{ item.comment }}</p>
+        </div>
       </li>
     </ul>
 

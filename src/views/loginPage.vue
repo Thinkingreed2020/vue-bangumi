@@ -9,7 +9,6 @@
 import { getUserCollections } from '@/api/bangumi'
 import router from '@/router'
 import { ref } from 'vue'
-import { useRouter } from 'vue-router'
 
 const userID = ref('')
 const defaultID = ref('561018')

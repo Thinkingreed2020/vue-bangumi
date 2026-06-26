@@ -70,16 +70,16 @@ export const getUserInfo = async (username: string): Promise<UserInfoResult> => 
   }
 }
 
-export const getMainichi = async (): Promise<mainichi> => {
+export const getMainichi = async (): Promise<mainichi[]> => {
   try {
-    const res = await bangumiClient.get<mainichi>('/calendar')
+    const res = await bangumiClient.get<mainichi[]>('/calendar')
     console.log(res.data)
     return res.data
   } catch (err) {
     if (axios.isAxiosError(err)) {
       const status = err.response?.status
       if (status === 404) {
-        throw new BangumiApiError(`获取主日失败`, status)
+        throw new BangumiApiError(`获取每日放送表失败`, status)
       }
       throw new BangumiApiError(err.message, status)
     }
