@@ -6,12 +6,16 @@ import type {
   ItemDetail,
   mainichi,
 } from '@/types/bangumi'
+import { VITE_BGM_TOKEN } from import.meta.env
+
+const token = VITE_BGM_TOKEN
 
 const bangumiClient = axios.create({
   baseURL: 'https://api.bgm.tv',
   headers: {
     Accept: 'application/json',
     // 'User-Agent': 'thinkingreed2020/vue-bangumi (https://github.com/Thinkingreed2020/vue-bangumi)',
+    Authorization: `Bearer ${token}`,
   },
 })
 

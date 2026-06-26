@@ -14,12 +14,12 @@
     <ul v-else-if="today" class="schedule-list">
       <li v-for="item in today.items" :key="item.id" class="schedule-item">
         <router-link :to="`/itemDetail/${item.id}`">
-          <img :src="item.images.grid" :alt="item.name_cn || item.name" width="80" />
-          <div class="info">
-            <p>{{ item.name_cn || item.name }}</p>
-            <p v-if="item.rating">评分：{{ item.rating.score ?? '暂无' }}</p>
-          </div>
+          <img :src="item.images.small" :alt="item.name_cn || item.name" width="80" />
         </router-link>
+        <div class="info">
+          <p>{{ item.name_cn || item.name }}</p>
+          <p v-if="item.rating">评分：{{ item.rating.score ?? '暂无' }}</p>
+        </div>
       </li>
     </ul>
   </div>
